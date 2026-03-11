@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Buynest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            min-height: 600px;
+            display: flex;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Left Side - Logo Section */
+        .logo-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+        }
+
+        .logo-image {
+            width: 280px;
+            height: 280px;
+            object-fit: contain;
+            animation: logoBounce 1s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        @keyframes logoBounce {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) translateY(-50px);
+            }
+            60% {
+                transform: scale(1.1) translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .logo-text {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .welcome-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: #e53935;
+            animation: slideInLeft 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .tagline-text {
+            font-size: 16px;
+            font-weight: 400;
+            color: #e53935;
+            margin-top: 10px;
+            animation: slideInLeft 0.8s ease-out 0.5s forwards;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Right Side - Login Card */
+        .login-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 320px;
+            padding: 25px;
+            background: #ffffff;
+            border: 2px solid #e53935;
+            border-radius: 15px;
+            animation: cardFadeIn 0.8s ease-out 0.6s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes cardFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .login-card p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #e53935;
+            box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            color: #e53935;
+        }
+
+        .forgot-password {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            font-size: 13px;
+            color: #e53935;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #c62828;
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #e53935;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: btnPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes btnPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(229, 57, 53, 0);
+            }
+        }
+
+        .login-btn:hover {
+            background: #c62828;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 57, 53, 0.3);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: #e53935;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #c62828;
+            text-decoration: underline;
+        }
+
+        /* Signup Options */
+        .signup-options {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            animation: slideUp 0.6s ease-out 1s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-options p {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .signup-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .signup-btn {
+            flex: 1;
+            padding: 10px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 2px solid #e53935;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .signup-btn.buyer {
+            background: #e53935;
+            color: #ffffff;
+        }
+
+        .signup-btn.buyer:hover {
+            background: #c62828;
+            border-color: #c62828;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+        }
+
+        .signup-btn.seller {
+            background: #ffffff;
+            color: #e53935;
+        }
+
+        .signup-btn.seller:hover {
+            background: #fff5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                min-height: 100vh;
+                border-radius: 0;
+            }
+
+            .logo-section {
+                padding: 25px 20px;
+                min-height: 200px;
+            }
+
+            .logo-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .welcome-text {
+                font-size: 18px;
+            }
+
+            .tagline-text {
+                font-size: 13px;
+            }
+
+            .login-section {
+                flex: 1;
+                padding: 20px 15px;
+                display: flex;
+                align-items: flex-start;
+            }
+
+            .login-card {
+                width: 100%;
+                max-width: 320px;
+                padding: 20px 15px;
+            }
+
+            .login-card h2 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0;
+            }
+
+            .logo-section {
+                min-height: 160px;
+                padding: 15px;
+            }
+
+            .logo-image {
+                width: 70px;
+                height: 70px;
+            }
+
+            .welcome-text {
+                font-size: 16px;
+            }
+
+            .tagline-text {
+                font-size: 11px;
+            }
+
+            .login-section {
+                padding: 15px 10px;
+            }
+
+            .login-card {
+                padding: 18px 14px;
+                max-width: 100%;
+                border-width: 1.5px;
+            }
+
+            .login-card h2 {
+                font-size: 18px;
+                margin-bottom: 3px;
+            }
+
+            .login-card p {
+                font-size: 12px;
+                margin-bottom: 15px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .form-group label {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+
+            .form-group input {
+                padding: 10px 12px;
+                font-size: 16px;
+            }
+
+            .forgot-password {
+                margin-bottom: 15px;
+            }
+
+            .forgot-password a {
+                font-size: 12px;
+            }
+
+            .login-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .signup-link {
+                margin-top: 15px;
+                font-size: 12px;
+            }
+
+            .signup-options {
+                margin-top: 18px;
+                padding-top: 15px;
+            }
+
+            .signup-options p {
+                font-size: 11px;
+                margin-bottom: 12px;
+            }
+
+            .signup-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .signup-btn {
+                padding: 12px;
+                font-size: 13px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 360px) {
+            .login-card {
+                padding: 15px 12px;
+            }
+
+            .logo-section {
+                min-height: 140px;
+            }
+
+            .logo-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* Fix for iOS Safari */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                min-height: -webkit-fill-available;
+            }
+        }
+
+        /* Input focus animation */
+        .form-group input:focus {
+            border-color: #e53935;
+            box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
+            animation: inputFocus 0.3s ease;
+        }
+
+        @keyframes inputFocus {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Side - Logo Section -->
+        <div class="logo-section">
+            <img src="logo.png" alt="Buynest Logo" class="logo-image">
+            <div class="logo-text">
+                <h1 class="welcome-text">Welcome to Buynest</h1>
+                <p class="tagline-text">Hello! Let's get you back to shopping</p>
+            </div>
+        </div>
+
+        <!-- Right Side - Login Card -->
+        <div class="login-section">
+            <div class="login-card">
+                <h2>Login</h2>
+                <p>Please enter your details to sign in</p>
+                
+                <form action="home.html" method="POST">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <i class="fa-regular fa-eye toggle-password" id="togglePassword"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="forgot-password">
+                        <a href="forgot.html">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+                
+                <div class="signup-options">
+                    <p>Don't have an account? Choose to sign up:</p>
+                    <div class="signup-buttons">
+                        <a href="buyersignup.html" class="signup-btn buyer">Signup as Buyer</a>
+                        <a href="sellersignup.html" class="signup-btn seller">Signup as Seller</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password Toggle Functionality
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle eye icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+</html>
